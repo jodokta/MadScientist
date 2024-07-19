@@ -90,22 +90,7 @@ function loadMotifParody(chapter, episode) {
 
 function showMotifParody(chapter, episode, parodyIndex) {
     const contentFrame = document.getElementById('contentFrame');
-    fetch(`/${chapter}/${episode}_parody${parodyIndex}.html`)
-        .then(response => response.text())
-        .then(data => {
-            // HTML 문자열을 파싱합니다
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(data, 'text/html');
-            
-            // 모든 이미지 태그를 찾아 경로를 수정합니다
-            doc.querySelectorAll('img').forEach(img => {
-                img.src = `/MadScientist/${chapter}/${img.getAttribute('src')}`;
-            });
-            
-            // 수정된 HTML을 contentFrame에 삽입합니다
-            contentFrame.innerHTML = doc.body.innerHTML;
-        })
-        .catch(error => console.error('Error:', error));
+    contentFrame.src = `/your-repo-name/${chapter}/${episode}_parody${parodyIndex}.html`;
 }
 
 function initializeDetailArea() {
