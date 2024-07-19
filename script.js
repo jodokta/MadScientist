@@ -90,7 +90,7 @@ function loadMotifParody(chapter, episode) {
 
 function showMotifParody(chapter, episode, parodyIndex) {
     const contentFrame = document.getElementById('contentFrame');
-    contentFrame.src = `/your-repo-name/${chapter}/${episode}_parody${parodyIndex}.html`;
+    contentFrame.src = `/MadScientist/${chapter}/${episode}_parody${parodyIndex}.html`;
 }
 
 function initializeDetailArea() {
