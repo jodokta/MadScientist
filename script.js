@@ -102,7 +102,7 @@ function adjustImagePaths(iframe) {
     const images = iframe.contentDocument.getElementsByTagName('img');
     for (let img of images) {
         if (!img.src.startsWith('/MadScientist/')) {
-            img.src = '/MadScientist/' + img.src.split('/').pop();
+            img.src = '/MadScientist/img/' + img.src.split('/').pop();
         }
     }
 }
