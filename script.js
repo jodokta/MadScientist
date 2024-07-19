@@ -91,6 +91,20 @@ function loadMotifParody(chapter, episode) {
 function showMotifParody(chapter, episode, parodyIndex) {
     const contentFrame = document.getElementById('contentFrame');
     contentFrame.src = `/MadScientist/${chapter}/${episode}_parody${parodyIndex}.html`;
+    
+    // iframe 로드 완료 후 이미지 경로 수정
+    contentFrame.onload = function() {
+        adjustImagePaths(contentFrame);
+    };
+}
+
+function adjustImagePaths(iframe) {
+    const images = iframe.contentDocument.getElementsByTagName('img');
+    for (let img of images) {
+        if (!img.src.startsWith('/MadScientist/')) {
+            img.src = '/MadScientist/' + img.src.split('/').pop();
+        }
+    }
 }
 
 function initializeDetailArea() {
