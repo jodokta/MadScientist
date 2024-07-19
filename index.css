@@ -1,0 +1,125 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f0f0f0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none
+}
+.nav-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+.nav-item {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    width: 200px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.nav-item:hover {
+    transform: scale(1.05);
+}
+.modal {
+    display: none;
+    position: fixed;
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    height: 90%;
+    background-color: white;
+    z-index: 1000;
+    border-radius: 20px;
+    overflow: hidden; /* 변경: hidden으로 설정 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal-content {
+    display: flex;
+    height: 100%;
+    overflow: hidden; /* 추가 */
+}
+.list-area {
+    width: 200px;
+    border-right: 1px solid #ccc;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    max-height: 100%; /* 추가 */
+}
+.list-area button {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.list-area button:hover {
+    background-color: #e0e0e0;
+}
+.content-area {
+    flex-grow: 1;
+    display: flex;
+    overflow: hidden;
+}
+.motif-parody-list {
+    width: 200px;
+    border-right: 1px solid #ccc;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    max-height: 100%; /* 추가 */
+}
+.motif-parody-list button {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+.motif-parody-list button:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+}
+.detail-area {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    max-height: 100%; /* 추가 */
+    overflow: hidden;
+}
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 30px;
+    cursor: pointer;
+}
+.selected-area {
+    background-color: #e0e0e0 !important;
+}
+.nav-item {
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease, box-shadow 0.3s ease;
+}
+.nav-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}

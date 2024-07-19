@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <base href="https://jodokta.github.io/MadScientist/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소설 구조 및 모티프/패러디</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="nav-container" id="navContainer">
+        <div class="nav-item" data-chapter="chapter0">후랄라그</div>
+        <div class="nav-item" data-chapter="chapter1">매드 사이언티스트의 새학기</div>
+        <div class="nav-item" data-chapter="chapter2">바라건대는 나에게 나의 연구할 실험실이 있었더면</div>
+        <div class="nav-item" data-chapter="chapter3">GLaMOS</div>
+        <div class="nav-item" data-chapter="chapter4">개인전</div>
+        <div class="nav-item" data-chapter="chapter5">단체전</div>
+        <div class="nav-item" data-chapter="chapter5-2">치하</div>
+        <div class="nav-item" data-chapter="chapter5-3">난장판</div>
+        <div class="nav-item" data-chapter="chapter6">유어탈조</div>
+        
+
+
+    </div>
+
+    <div id="modal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="modal-content">
+            <div class="list-area" id="episodeList">
+                <!-- 에피소드 목록은 JavaScript로 동적 생성 -->
+            </div>
+            <div class="content-area">
+                <div class="motif-parody-list" id="motifParodyList">
+                    <!-- 모티프/패러디 목록은 JavaScript로 동적 생성 -->
+                </div>
+                <div class="detail-area" id="detailArea">
+                    <iframe id="contentFrame" style="width:100%; height:100%; border:none;"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
