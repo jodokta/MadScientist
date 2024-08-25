@@ -1,6 +1,8 @@
 :root {
     --primary-color: #4CAF50;
     --secondary-color: #45a049;
+    --parody-color: #3498db;
+    --parody-hover-color: #2980b9;
     --background-color: #f0f0f0;
     --text-color: #333;
     --modal-background: #fff;
@@ -77,6 +79,13 @@ body {
     overflow-x: hidden;
 }
 
+.list-area h3 {
+    margin-top: 0;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+}
+
 .list-area button {
     width: 100%;
     padding: 10px;
@@ -97,13 +106,21 @@ body {
     transform: translateY(-2px);
 }
 
+#motifParodyList button {
+    background-color: var(--parody-color);
+}
+
+#motifParodyList button:hover {
+    background-color: var(--parody-hover-color);
+}
+
 .detail-area {
     flex-grow: 1;
     overflow: hidden;
 }
 
 .close {
-    position: absolute;
+    position: fixed;
     top: 10px;
     right: 20px;
     font-size: 30px;
@@ -128,19 +145,25 @@ body {
         flex-direction: column;
         border-right: none;
         border-bottom: 1px solid #ccc;
+        max-height: 50vh;
     }
 
     .detail-area {
         display: none;
+        height: calc(100vh - 50vh - 60px);
     }
 
     .detail-area.active {
         display: block;
-        height: 100%;
     }
 
     .sidebar.hidden {
         display: none;
+    }
+
+    .close {
+        top: 5px;
+        right: 10px;
     }
 }
 

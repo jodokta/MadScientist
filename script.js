@@ -48,8 +48,8 @@ function closeModal() {
 function loadEpisodes(chapter) {
     const episodeList = document.getElementById('episodeList');
     const motifParodyList = document.getElementById('motifParodyList');
-    episodeList.innerHTML = '';
-    motifParodyList.innerHTML = '';
+    episodeList.innerHTML = '<h3>에피소드 목록</h3>';
+    motifParodyList.innerHTML = '<h3>패러디 목록</h3>';
     initializeDetailArea();
     
     const episodeObject = chapterEpisodeParodyNames[chapter] || {};
@@ -68,7 +68,7 @@ function loadContent(chapter, episode) {
     const episodeList = document.getElementById('episodeList');
     
     episodeList.querySelectorAll('button').forEach(btn => btn.classList.remove('selected-area'));
-    const selectedEpisodeButton = episodeList.querySelector(`button:nth-child(${episode})`);
+    const selectedEpisodeButton = episodeList.querySelector(`button:nth-child(${episode + 1})`);
     selectedEpisodeButton.classList.add('selected-area');
     
     loadMotifParody(chapter, episode);
@@ -76,7 +76,7 @@ function loadContent(chapter, episode) {
 
 function loadMotifParody(chapter, episode) {
     const motifParodyList = document.getElementById('motifParodyList');
-    motifParodyList.innerHTML = '';
+    motifParodyList.innerHTML = '<h3>패러디 목록</h3>';
     
     const parodyNames = chapterEpisodeParodyNames[chapter]?.[episode] || {};
     
@@ -87,6 +87,11 @@ function loadMotifParody(chapter, episode) {
         button.onclick = () => showMotifParody(chapter, episode, index);
         motifParodyList.appendChild(button);
     });
+
+    if (isMobileView) {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.scrollTop = sidebar.scrollHeight;
+    }
 }
 
 function showMotifParody(chapter, episode, parodyIndex) {
@@ -151,7 +156,7 @@ function initializeDetailArea() {
 
 function initializeMotifParodyList() {
     const motifParodyList = document.getElementById('motifParodyList');
-    motifParodyList.innerHTML = '';
+    motifParodyList.innerHTML = '<h3>패러디 목록</h3>';
 }
 
 function checkViewportSize() {
