@@ -8,27 +8,34 @@ body {
     -ms-user-select: none;
     user-select: none
 }
+
 .nav-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
 }
+
 .nav-item {
     background-color: white;
     border-radius: 10px;
     padding: 20px;
-    width: 200px;
+    width: calc(25% - 20px);
+    min-width: 200px;
     height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 .nav-item:hover {
     transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
+
 .modal {
     display: none;
     position: fixed;
@@ -39,71 +46,67 @@ body {
     background-color: white;
     z-index: 1000;
     border-radius: 20px;
-    overflow: hidden; /* 변경: hidden으로 설정 */
+    overflow: hidden;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .modal-content {
     display: flex;
     height: 100%;
-    overflow: hidden; /* 추가 */
-}
-.list-area {
-    width: 200px;
-    border-right: 1px solid #ccc;
-    padding: 20px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    max-height: 100%; /* 추가 */
-}
-.list-area button {
-    margin-bottom: 10px;
-    padding: 10px;
-    background-color: #f0f0f0;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-.list-area button:hover {
-    background-color: #e0e0e0;
-}
-.content-area {
-    flex-grow: 1;
-    display: flex;
     overflow: hidden;
 }
-.motif-parody-list {
+
+.list-area, .motif-parody-list {
     width: 200px;
     border-right: 1px solid #ccc;
     padding: 20px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    max-height: 100%; /* 추가 */
+    max-height: 100%;
 }
-.motif-parody-list button {
+
+.list-area button, .motif-parody-list button {
     margin-bottom: 10px;
     padding: 10px;
-    background-color: #4CAF50;
-    color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.2s, transform 0.2s;
 }
+
+.list-area button {
+    background-color: #f0f0f0;
+}
+
+.list-area button:hover {
+    background-color: #e0e0e0;
+}
+
+.motif-parody-list button {
+    background-color: #4CAF50;
+    color: white;
+}
+
 .motif-parody-list button:hover {
     background-color: #45a049;
     transform: translateY(-2px);
 }
+
+.content-area {
+    flex-grow: 1;
+    display: flex;
+    overflow: hidden;
+}
+
 .detail-area {
     flex-grow: 1;
     padding: 20px;
     overflow-y: auto;
-    max-height: 100%; /* 추가 */
+    max-height: 100%;
     overflow: hidden;
 }
+
 .close {
     position: absolute;
     top: 10px;
@@ -111,15 +114,53 @@ body {
     font-size: 30px;
     cursor: pointer;
 }
+
 .selected-area {
     background-color: #e0e0e0 !important;
 }
-.nav-item {
 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease, box-shadow 0.3s ease;
+/* 반응형 디자인을 위한 미디어 쿼리 */
+@media screen and (max-width: 1024px) {
+    .nav-item {
+        width: calc(33.33% - 20px);
+    }
+    
+    .modal-content {
+        flex-direction: column;
+    }
+    
+    .list-area, .motif-parody-list {
+        width: 100%;
+        max-height: 200px;
+        border-right: none;
+        border-bottom: 1px solid #ccc;
+    }
+    
+    .content-area {
+        flex-direction: column;
+    }
 }
-.nav-item:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+
+@media screen and (max-width: 768px) {
+    .nav-item {
+        width: calc(50% - 20px);
+    }
+    
+    .modal {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .nav-item {
+        width: 100%;
+    }
+    
+    body {
+        padding: 10px;
+    }
 }
