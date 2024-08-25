@@ -18,24 +18,21 @@
         <div class="nav-item" data-chapter="chapter6">치하</div>
         <div class="nav-item" data-chapter="chapter7">난장판</div>
         <div class="nav-item" data-chapter="chapter8">유어탈조</div>
-        
-
-
     </div>
 
     <div id="modal" class="modal">
-        <span class="close" onclick="closeModal()">&times;</span>
         <div class="modal-content">
-            <div class="list-area" id="episodeList">
-                <!-- 에피소드 목록은 JavaScript로 동적 생성 -->
-            </div>
-            <div class="content-area">
-                <div class="motif-parody-list" id="motifParodyList">
+            <button class="close" onclick="closeModal()">&times;</button>
+            <div class="sidebar">
+                <div class="list-area" id="episodeList">
+                    <!-- 에피소드 목록은 JavaScript로 동적 생성 -->
+                </div>
+                <div class="list-area" id="motifParodyList">
                     <!-- 모티프/패러디 목록은 JavaScript로 동적 생성 -->
                 </div>
-                <div class="detail-area" id="detailArea">
-                    <iframe id="contentFrame" style="width:100%; height:100%; border:none;"></iframe>
-                </div>
+            </div>
+            <div class="detail-area" id="detailArea">
+                <iframe id="contentFrame" style="width:100%; height:100%; border:none;"></iframe>
             </div>
         </div>
     </div>

@@ -7,7 +7,6 @@ fetch('data.json')
   .then(response => response.json())
   .then(data => {
     chapterEpisodeParodyNames = data;
-    // 네비게이션 아이템을 초기화합니다.
     initializeNavItems();
   })
   .catch(error => console.error('Error loading the JSON data:', error));
@@ -23,18 +22,20 @@ function openModal(chapter) {
     currentChapter = chapter;
     const modal = document.getElementById('modal');
     const navContainer = document.getElementById('navContainer');
-    modal.style.display = 'block';
+    modal.style.display = 'flex';
     navContainer.style.display = 'none';
     loadEpisodes(chapter);
+    document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
 }
 
 function closeModal() {
     const modal = document.getElementById('modal');
     const navContainer = document.getElementById('navContainer');
     modal.style.display = 'none';
-    navContainer.style.display = 'flex';
+    navContainer.style.display = 'grid';
     initializeMotifParodyList();
     initializeDetailArea();
+    document.body.style.overflow = ''; // Re-enable scrolling
 }
 
 function loadEpisodes(chapter) {
@@ -44,16 +45,12 @@ function loadEpisodes(chapter) {
     motifParodyList.innerHTML = '';
     initializeDetailArea();
     
-    // 해당 챕터의 에피소드 객체를 가져옵니다.
     const episodeObject = chapterEpisodeParodyNames[chapter] || {};
-    
-    // 에피소드 객체의 키 개수를 세어 에피소드 수를 결정합니다.
     const episodeCount = Object.keys(episodeObject).length;
     
-    // 해당 챕터의 에피소드 수만큼 버튼을 생성합니다.
     for (let i = 1; i <= episodeCount; i++) {
         const button = document.createElement('button');
-        button.textContent = `${i}`;
+        button.textContent = `에피소드 ${i}`;
         button.onclick = () => loadContent(chapter, i);
         episodeList.appendChild(button);
     }
@@ -62,7 +59,6 @@ function loadEpisodes(chapter) {
 function loadContent(chapter, episode) {
     currentEpisode = episode;
     const episodeList = document.getElementById('episodeList');
-    const contentFrame = document.getElementById('contentFrame');
     
     episodeList.querySelectorAll('button').forEach(btn => btn.classList.remove('selected-area'));
     const selectedEpisodeButton = episodeList.querySelector(`button:nth-child(${episode})`);
@@ -75,10 +71,8 @@ function loadMotifParody(chapter, episode) {
     const motifParodyList = document.getElementById('motifParodyList');
     motifParodyList.innerHTML = '';
     
-    // 해당 챕터와 에피소드의 패러디 이름 객체를 가져옵니다.
     const parodyNames = chapterEpisodeParodyNames[chapter]?.[episode] || {};
     
-    // 패러디 이름 객체의 키를 순회하며 버튼을 생성합니다.
     Object.keys(parodyNames).forEach(index => {
         const button = document.createElement('button');
         const parodyName = parodyNames[index];
@@ -92,7 +86,6 @@ function showMotifParody(chapter, episode, parodyIndex) {
     const contentFrame = document.getElementById('contentFrame');
     contentFrame.src = `/MadScientist/${chapter}/${episode}_parody${parodyIndex}.html`;
     
-    // iframe 로드 완료 후 이미지 경로 수정 및 스타일 적용
     contentFrame.onload = function() {
         adjustImagePaths(contentFrame);
         applyResponsiveStyles(contentFrame);
@@ -111,24 +104,23 @@ function adjustImagePaths(iframe) {
 function applyResponsiveStyles(iframe) {
     const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
     
-    // body 스타일 적용
-    const body = iframeDoc.body;
-    body.style.margin = '0';
-    body.style.padding = '0';
-    body.style.overflowX = 'hidden'; // 가로 스크롤만 제거
-    body.style.width = '100%';
-    
-    // 이미지 스타일 적용
-    const img = iframeDoc.querySelector('img');
-    if (img) {
-        img.style.maxWidth = '100%';
-        img.style.height = 'auto';
-        img.style.display = 'block';
-        img.style.marginLeft = 'auto';
-        img.style.marginRight = 'auto';
-    }
+    const style = iframeDoc.createElement('style');
+    style.textContent = `
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            width: 100%;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+    `;
+    iframeDoc.head.appendChild(style);
 
-    // viewport meta 태그 추가
     let meta = iframeDoc.querySelector('meta[name="viewport"]');
     if (!meta) {
         meta = iframeDoc.createElement('meta');
@@ -149,31 +141,15 @@ function initializeMotifParodyList() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const listArea = document.querySelector('.list-area');
-    const contentArea = document.querySelector('.content-area');
-    const motifParodyList = document.getElementById('motifParodyList');
-
-    listArea.addEventListener('click', (event) => {
-        if (event.target === listArea) {
-            initializeMotifParodyList();
-            initializeDetailArea();
-        }
-    });
-
-    contentArea.addEventListener('click', (event) => {
-        if (event.target === contentArea) {
-            initializeDetailArea();
-        }
-    });
-
-    motifParodyList.addEventListener('click', (event) => {
-        if (event.target === motifParodyList) {
-            initializeDetailArea();
+    const modal = document.getElementById('modal');
+    
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            closeModal();
         }
     });
 });
 
-// ESC 키 이벤트 리스너
 document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
         closeModal();
