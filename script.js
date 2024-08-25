@@ -115,19 +115,27 @@ function applyResponsiveStyles(iframe) {
     const body = iframeDoc.body;
     body.style.margin = '0';
     body.style.padding = '0';
-    body.style.display = 'flex';
-    body.style.justifyContent = 'center';
-    body.style.alignItems = 'center';
-    body.style.height = '100vh';
-    body.style.overflow = 'hidden';
-
+    body.style.overflowX = 'hidden'; // 가로 스크롤만 제거
+    body.style.width = '100%';
+    
     // 이미지 스타일 적용
     const img = iframeDoc.querySelector('img');
     if (img) {
         img.style.maxWidth = '100%';
-        img.style.maxHeight = '100%';
-        img.style.objectFit = 'contain';
+        img.style.height = 'auto';
+        img.style.display = 'block';
+        img.style.marginLeft = 'auto';
+        img.style.marginRight = 'auto';
     }
+
+    // viewport meta 태그 추가
+    let meta = iframeDoc.querySelector('meta[name="viewport"]');
+    if (!meta) {
+        meta = iframeDoc.createElement('meta');
+        meta.name = 'viewport';
+        iframeDoc.head.appendChild(meta);
+    }
+    meta.content = 'width=device-width, initial-scale=1';
 }
 
 function initializeDetailArea() {
