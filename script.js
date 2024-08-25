@@ -92,9 +92,10 @@ function showMotifParody(chapter, episode, parodyIndex) {
     const contentFrame = document.getElementById('contentFrame');
     contentFrame.src = `/MadScientist/${chapter}/${episode}_parody${parodyIndex}.html`;
     
-    // iframe 로드 완료 후 이미지 경로 수정
+    // iframe 로드 완료 후 이미지 경로 수정 및 스타일 적용
     contentFrame.onload = function() {
         adjustImagePaths(contentFrame);
+        applyResponsiveStyles(contentFrame);
     };
 }
 
@@ -104,6 +105,28 @@ function adjustImagePaths(iframe) {
         if (!img.src.startsWith('/MadScientist/')) {
             img.src = '/MadScientist/img/' + img.src.split('/').pop();
         }
+    }
+}
+
+function applyResponsiveStyles(iframe) {
+    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+    
+    // body 스타일 적용
+    const body = iframeDoc.body;
+    body.style.margin = '0';
+    body.style.padding = '0';
+    body.style.display = 'flex';
+    body.style.justifyContent = 'center';
+    body.style.alignItems = 'center';
+    body.style.height = '100vh';
+    body.style.overflow = 'hidden';
+
+    // 이미지 스타일 적용
+    const img = iframeDoc.querySelector('img');
+    if (img) {
+        img.style.maxWidth = '100%';
+        img.style.maxHeight = '100%';
+        img.style.objectFit = 'contain';
     }
 }
 
