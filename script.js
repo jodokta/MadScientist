@@ -1,8 +1,8 @@
 let chapterEpisodeParodyNames = {};
 let currentChapter = '';
 let currentEpisode = '';
+let isMobileView = false;
 
-// 페이지 로드 시 JSON 데이터를 가져옵니다.
 fetch('data.json')
   .then(response => response.json())
   .then(data => {
@@ -22,20 +22,27 @@ function openModal(chapter) {
     currentChapter = chapter;
     const modal = document.getElementById('modal');
     const navContainer = document.getElementById('navContainer');
-    modal.style.display = 'flex';
+    modal.style.display = 'block';
     navContainer.style.display = 'none';
     loadEpisodes(chapter);
-    document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+    checkViewportSize();
+    document.body.style.overflow = 'hidden';
 }
 
 function closeModal() {
     const modal = document.getElementById('modal');
     const navContainer = document.getElementById('navContainer');
+    const sidebar = document.getElementById('sidebar');
+    const detailArea = document.getElementById('detailArea');
+    
     modal.style.display = 'none';
     navContainer.style.display = 'grid';
+    sidebar.classList.remove('hidden');
+    detailArea.classList.remove('active');
+    
     initializeMotifParodyList();
     initializeDetailArea();
-    document.body.style.overflow = ''; // Re-enable scrolling
+    document.body.style.overflow = '';
 }
 
 function loadEpisodes(chapter) {
@@ -90,6 +97,13 @@ function showMotifParody(chapter, episode, parodyIndex) {
         adjustImagePaths(contentFrame);
         applyResponsiveStyles(contentFrame);
     };
+
+    if (isMobileView) {
+        const sidebar = document.getElementById('sidebar');
+        const detailArea = document.getElementById('detailArea');
+        sidebar.classList.add('hidden');
+        detailArea.classList.add('active');
+    }
 }
 
 function adjustImagePaths(iframe) {
@@ -140,18 +154,40 @@ function initializeMotifParodyList() {
     motifParodyList.innerHTML = '';
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const modal = document.getElementById('modal');
+function checkViewportSize() {
+    isMobileView = window.innerWidth <= 768;
+    const closeButton = document.querySelector('.close');
+    if (isMobileView) {
+        closeButton.onclick = closeModalMobile;
+    } else {
+        closeButton.onclick = closeModal;
+    }
+}
+
+function closeModalMobile() {
+    const sidebar = document.getElementById('sidebar');
+    const detailArea = document.getElementById('detailArea');
     
-    modal.addEventListener('click', (event) => {
-        if (event.target === modal) {
-            closeModal();
-        }
-    });
+    if (detailArea.classList.contains('active')) {
+        sidebar.classList.remove('hidden');
+        detailArea.classList.remove('active');
+    } else {
+        closeModal();
+    }
+}
+
+window.addEventListener('resize', checkViewportSize);
+
+document.addEventListener('DOMContentLoaded', () => {
+    checkViewportSize();
 });
 
 document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
-        closeModal();
+        if (isMobileView) {
+            closeModalMobile();
+        } else {
+            closeModal();
+        }
     }
 });
